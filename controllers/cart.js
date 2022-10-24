@@ -1,5 +1,7 @@
 import ApiError from '../service/error/ApiError.js'
 import axios from 'axios'
+import dotenv from 'dotenv'
+dotenv.config()
 
 class CartController {
 	async post (req, res, next) {
@@ -10,7 +12,7 @@ class CartController {
 			for (const el of products) {
 				await axios.get('https://api.shinpi.ru/kolobox/products/', {
 					params: { id: el.offerId },
-					headers: { token: 'zXHSPq96upy9bS2JoIDAbrGJwyoygSXZYSqcVERd' }
+					headers: { token: process.env.TOKEN_API }
 				})
 					.then(result => {
 						items_result.push({

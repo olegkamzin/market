@@ -23,7 +23,7 @@ class OrderController {
 			await items.forEach(async el => {
 				await axios.post('https://api.shinpi.ru/kolobox/orders/', null, {
 					params: { id: el.shopSku, quantity: el.count },
-					headers: { token: 'zXHSPq96upy9bS2JoIDAbrGJwyoygSXZYSqcVERd' }
+					headers: { token: process.env.TOKEN_API }
 				}).then(async result => {
 					await bot.sendMessage(263739791, `✅ Новый заказ <code>${order_number}</code> на сумму ${req.body.order.totalWithSubsidy} ₽. Отгрузка: ${req.body.order.delivery.dates.fromDate}\r\n\r\n • ${el.offerName} - ${el.count} шт.\r\n\r\nРезерв оформлен - <code>${result.data.orders[0]}</code>`, { parse_mode: 'HTML' }).catch(error => console.log(error))
 					await bot.sendMessage(106773824, `✅ Новый заказ <code>${order_number}</code> на сумму ${req.body.order.totalWithSubsidy} ₽. Отгрузка: ${req.body.order.delivery.dates.fromDate}\r\n\r\n • ${el.offerName} - ${el.count} шт.\r\n\r\nРезерв оформлен - <code>${result.data.orders[0]}</code>`, { parse_mode: 'HTML' }).catch(error => console.log(error))
