@@ -10,7 +10,6 @@ const bot = new TelegramBot(token, { polling: true })
 class OrderController {
 	async post (req, res, next) {
 		try {
-			console.log(req.body)
 			const order_number = String(req.body.order.id)
 			const items = req.body.order.items
 			const order = {
@@ -34,14 +33,12 @@ class OrderController {
 			});
 			return res.json({ order })
 		} catch (e) {
-			console.log(e)
 			next(ApiError.badRequest(e))
 		}
 	}
 
 	async status (req, res, next) {
 		try {
-			console.log(req.body)
 			return res.json('ok')
 		} catch (e) {
 			next(ApiError.badRequest(e))

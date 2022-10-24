@@ -6,7 +6,6 @@ class StocksController {
 		try {
 			const { warehouseId, partnerWarehouseId, skus } = req.body
 			const skus_res = []
-			console.log(req.body)
 			const date = new Date()
 			const products = await axios.get('https://api.shinpi.ru/product/', {
 				params: {

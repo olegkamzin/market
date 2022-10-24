@@ -7,7 +7,6 @@ class CartController {
 	async post (req, res, next) {
 		try {
 			const products = req.body.cart.items
-			console.log(req.body)
 			const items_result = []
 			for (const el of products) {
 				await axios.get('https://api.shinpi.ru/kolobox/products/', {
@@ -37,7 +36,6 @@ class CartController {
 			return res.json({ cart: { items: items_result } })
 		} catch (e) {
 			next(ApiError.badRequest(e))
-			console.log(e)
 		}
 	}
 
