@@ -14,6 +14,15 @@ class CartController {
 					headers: { token: process.env.TOKEN_API }
 				})
 					.then(result => {
+						if (!result) {
+							return items_result.push({
+								feedId: el.feedId,
+								offerId: el.offerId,
+								count: 0,
+								warehouseId: el.warehouseId,
+								partnerWarehouseId: el.partnerWarehouseId
+							})
+						}
 						items_result.push({
 							feedId: el.feedId,
 							offerId: el.offerId,
