@@ -5,17 +5,44 @@ class StocksController {
 	async post (req, res, next) {
 		try {
 			const { warehouseId, partnerWarehouseId, skus } = req.body
-			const skus_res = {}
-			await axios.get('https://api.shinpi.ru/service/kolobox/products/?id=6310703ca85a7b4ddf84ddee', {
-				headers: { token: 'zXHSPq96upy9bS2JoIDAbrGJwyoygSXZYSqcVERd' }
-			})
-				.then(result => console.log(result))
-				.catch(error => console.log(error))
-			// skus.forEach(async el => {
-			// 	console.log(el)
-				
-			// })
+			const skus_res = []
 			console.log(req.body)
+			const date = new Date()
+			const products = await axios.get('https://api.shinpi.ru/product/', {
+				params: {
+					category: 'tyres',
+					limit: 5000
+				}
+			})
+			await skus.forEach(async el => {
+				const pr = products.data.find(find => find._id === el)
+				if (!pr) {
+					return skus_res.push({
+						sku: el,
+						warehouseId: warehouseId,
+						items: [
+							{
+								type: 'FIT',
+								count: 0,
+								updatedAt: date.toISOString()
+							  }
+						]
+					})
+				} else {
+					return skus_res.push({
+						sku: el,
+						warehouseId: warehouseId,
+						items: [
+							{
+								type: 'FIT',
+								count: pr.quantity >= 2 ? pr.quantity : 0,
+								updatedAt: date.toISOString()
+							  }
+						]
+					})
+				}
+			})
+			return res.json({ skus: skus_res })
 		} catch (e) {
 			next(ApiError.badRequest(e))
 		}
