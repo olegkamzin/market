@@ -35,6 +35,7 @@ class CartController {
 			}
 			return res.json({ cart: { items: items_result } })
 		} catch (e) {
+			console.log(e)
 			next(ApiError.badRequest(e))
 		}
 	}
