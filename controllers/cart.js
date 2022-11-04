@@ -17,7 +17,7 @@ class CartController {
 						items_result.push({
 							feedId: el.feedId,
 							offerId: el.offerId,
-							count: result.data.count_local === null ? 0 : (result.data.price * 1.18) >= 5000 ? result.data.count_local : 0,
+							count: result.data.count_local === null ? 0 : result.data.count_local >= 2 ? result.data.count_local : 0,
 							warehouseId: el.warehouseId,
 							partnerWarehouseId: el.partnerWarehouseId
 						})

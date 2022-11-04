@@ -36,7 +36,7 @@ class StocksController {
 						items: [
 							{
 								type: 'FIT',
-								count: pr.price >= 5000 ? pr.quantity : 0,
+								count: pr.quantity >= 2 ? pr.quantity : 0,
 								updatedAt: date.toISOString()
 							  }
 						]
