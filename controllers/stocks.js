@@ -13,7 +13,7 @@ class StocksController {
 					limit: 5000
 				}
 			}).catch(error => {
-				console.log(error)
+				return null
 			})
 			await skus.forEach(async el => {
 				const pr = products.data.find(find => find._id === el)
@@ -45,7 +45,6 @@ class StocksController {
 			})
 			return res.json({ skus: skus_res })
 		} catch (e) {
-			console.log(e)
 			next(ApiError.badRequest(e))
 		}
 	}

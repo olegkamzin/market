@@ -33,7 +33,6 @@ class OrderController {
 			});
 			return res.json({ order })
 		} catch (e) {
-			console.log(e)
 			next(ApiError.badRequest(e))
 		}
 	}
@@ -42,7 +41,6 @@ class OrderController {
 		try {
 			return res.json('ok')
 		} catch (e) {
-			console.log(e)
 			next(ApiError.badRequest(e))
 		}
 	}

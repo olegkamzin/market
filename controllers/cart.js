@@ -14,16 +14,19 @@ class CartController {
 					headers: { token: process.env.TOKEN_API }
 				})
 					.then(result => {
+						let count = 0
+						if (result.data.count_local >= 2) {
+							count = result.data.count_local
+						}
 						items_result.push({
 							feedId: el.feedId,
 							offerId: el.offerId,
-							count: result.data.count_local === null ? 0 : result.data.count_local >= 2 ? result.data.count_local : 0,
+							count: result.data.count_local === null ? 0 : count,
 							warehouseId: el.warehouseId,
 							partnerWarehouseId: el.partnerWarehouseId
 						})
 					})
 					.catch(error => {
-						console.log(error)
 						items_result.push({
 							feedId: el.feedId,
 							offerId: el.offerId,
@@ -35,7 +38,6 @@ class CartController {
 			}
 			return res.json({ cart: { items: items_result } })
 		} catch (e) {
-			console.log(e)
 			next(ApiError.badRequest(e))
 		}
 	}
