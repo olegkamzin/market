@@ -15,7 +15,7 @@ class CartController {
 				})
 					.then(result => {
 						let count = 0
-						if (result.data.count_local >= 2) {
+						if (result.data.count_local > 1) {
 							count = result.data.count_local
 						}
 						items_result.push({
