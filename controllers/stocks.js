@@ -8,22 +8,23 @@ class StocksController {
 			const skus_res = []
 			const date = new Date()
 			const products = await axios.get('https://api.shinpi.ru/product/', {
-				body: {
-					items: skus
+				params: {
+					category: 'tyres',
+					limit: 5000
 				}
 			}).catch(error => {
-				return next(ApiError.badRequest(error))
+				return null
 			})
 			await skus.forEach(async el => {
 				const pr = products.data.find(find => find._id === el)
-				if (pr) {
+				if (!pr) {
 					return skus_res.push({
 						sku: el,
 						warehouseId: warehouseId,
 						items: [
 							{
 								type: 'FIT',
-								count: pr.quantity > 1 ? pr.quantity : 0,
+								count: 0,
 								updatedAt: date.toISOString()
 							  }
 						]
@@ -35,7 +36,7 @@ class StocksController {
 						items: [
 							{
 								type: 'FIT',
-								count: 0,
+								count: pr.quantity > 1 ? pr.quantity : 0,
 								updatedAt: date.toISOString()
 							  }
 						]
