@@ -15,7 +15,7 @@ class StocksController {
 				return next(ApiError.badRequest(error))
 			})
 			await skus.forEach(async el => {
-				const pr = products.data.include(el)
+				const pr = products.data.find(find => find._id === el)
 				if (pr) {
 					return skus_res.push({
 						sku: el,
