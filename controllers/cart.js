@@ -28,12 +28,13 @@ class CartController {
 							partnerWarehouseId: el.partnerWarehouseId
 						})
 					})
-					.catch(error => {
+					.catch(async error => {
+						const product = await axios.get('https://api.shinpi.ru/product/' + el.offerId)
 						// console.log(error)
 						items_result.push({
 							feedId: el.feedId,
 							offerId: el.offerId,
-							count: 0,
+							count: product.quantity,
 							warehouseId: el.warehouseId,
 							partnerWarehouseId: el.partnerWarehouseId
 						})
