@@ -14,7 +14,7 @@ class CartController {
 					headers: { token: process.env.TOKEN_API }
 				})
 					.then(result => {
-						console.log(result)
+						// console.log(result)
 						let count = 0
 						if (result.data.count_local > 1) {
 							count = result.data.count_local
@@ -29,7 +29,7 @@ class CartController {
 						})
 					})
 					.catch(error => {
-						console.log(error)
+						// console.log(error)
 						items_result.push({
 							feedId: el.feedId,
 							offerId: el.offerId,
