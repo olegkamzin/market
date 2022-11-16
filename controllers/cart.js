@@ -8,29 +8,29 @@ class CartController {
 		try {
 			const products = req.body.cart.items
 			const items_result = []
+			let count = 0
 			for (const el of products) {
 				await axios.get('https://api.shinpi.ru/kolobox/products/', {
 					params: { id: el.offerId },
 					headers: { token: process.env.TOKEN_API }
 				})
 					.then(result => {
-						// console.log(result)
-						let count = 0
 						if (result.data.count_local > 1) {
 							count = result.data.count_local
 						}
 						items_result.push({
 							feedId: el.feedId,
 							offerId: el.offerId,
-							// count: result.data.count_local === null ? 0 : result.data.count_local,
 							count: result.data.count_local === null ? 0 : count,
 							warehouseId: el.warehouseId,
 							partnerWarehouseId: el.partnerWarehouseId
 						})
 					})
-					.catch(async error => {
+					.catch(async () => {
 						const product = await axios.get('https://api.shinpi.ru/product/' + el.offerId)
-						// console.log(error)
+						if (product.quantity > 1) {
+							count = result.data.count_local
+						}
 						items_result.push({
 							feedId: el.feedId,
 							offerId: el.offerId,
