@@ -16,7 +16,7 @@ class StocksController {
 				return null
 			})
 			await skus.forEach(async el => {
-				const pr = products.data.find(find => find._id === el)
+				const pr = products.data.result.find(find => find._id === el)
 				if (!pr) {
 					return skus_res.push({
 						sku: el,
