@@ -24,7 +24,7 @@ class OrderController {
 					params: { id: el.shopSku, quantity: el.count },
 					headers: { token: process.env.TOKEN_API }
 				}).then(async result => {
-					if (result.data.data.errors[0].length === 0) {
+					if (result.data.data.errors.length === 0) {
 						await bot.sendMessage(263739791, `✅ Новый заказ <code>${order_number}</code> на сумму ${req.body.order.itemsTotal} ₽. Отгрузка: ${req.body.order.delivery.shipments[0].shipmentDate}\r\n\r\n • ${el.offerName} - ${el.count} шт.\r\n<code>${el.offerId}</code>\r\n\r\nРезерв оформлен - <code>${result.data.orders[0]}</code>`, {parse_mode: 'HTML'}).catch(error => console.log(error))
 						await bot.sendMessage(106773824, `✅ Новый заказ <code>${order_number}</code> на сумму ${req.body.order.itemsTotal} ₽. Отгрузка: ${req.body.order.delivery.shipments[0].shipmentDate}\r\n\r\n • ${el.offerName} - ${el.count} шт.\r\n<code>${el.offerId}</code>\r\n\r\nРезерв оформлен - <code>${result.data.orders[0]}</code>`, {parse_mode: 'HTML'}).catch(error => console.log(error))
 					} else {
