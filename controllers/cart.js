@@ -6,6 +6,10 @@ dotenv.config()
 class CartController {
 	async post (req, res, next) {
 		try {
+			const token = req.headers.token
+			if (token !== process.env.TOKEN) {
+				return next(ApiError.unauthorized('Нет доступа.'))
+			}
 			const products = req.body.cart.items
 			const items_result = []
 			let count = 0
