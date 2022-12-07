@@ -26,6 +26,7 @@ class OrderController {
 				}).then(result => {
 					axios.get('https://api.shinpi.ru/product/' + el.shopSku)
 						.then(async product => {
+							console.log(product)
 							await bot.sendMessage(263739791, `✅ Новый заказ <code>${order_number}</code> на сумму ${product.price} ₽. Отгрузка: ${req.body.order.delivery.shipments[0].shipmentDate}\r\n\r\n • ${el.offerName} - ${el.count} шт.\r\n\r\n- Артикул: <code>${product.article}</code>\r\n- ID: <code>${el.offerId}</code>\r\n- Резерв: <code>${result.data.orders[0]}</code>\r\n- Оптовая цена: ${product.wholesale_price}`, {parse_mode: 'HTML'}).catch(error => console.log(error))
 							await bot.sendMessage(106773824, `✅ Новый заказ <code>${order_number}</code> на сумму ${product.price} ₽. Отгрузка: ${req.body.order.delivery.shipments[0].shipmentDate}\r\n\r\n • ${el.offerName} - ${el.count} шт.\r\n\r\n- Артикул: <code>${product.article}</code>\r\n- ID: <code>${el.offerId}</code>\r\n- Резерв: <code>${result.data.orders[0]}</code>\r\n- Оптовая цена: ${product.wholesale_price}`, {parse_mode: 'HTML'}).catch(error => console.log(error))
 						})
