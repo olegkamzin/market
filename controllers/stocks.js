@@ -4,10 +4,6 @@ import axios from 'axios'
 class StocksController {
 	async post (req, res, next) {
 		try {
-			const token = req.headers.token
-			if (token !== process.env.TOKEN) {
-				return next(ApiError.unauthorized('Нет доступа.'))
-			}
 			const { warehouseId, partnerWarehouseId, skus } = req.body
 			const skus_res = []
 			const date = new Date()

@@ -10,10 +10,6 @@ const bot = new TelegramBot(token, { polling: true })
 class OrderController {
 	async post (req, res, next) {
 		try {
-			const token = req.headers.token
-			if (token !== process.env.TOKEN) {
-				return next(ApiError.unauthorized('Нет доступа.'))
-			}
 			const order_number = String(req.body.order.id)
 			const items = req.body.order.items
 			const order = {
