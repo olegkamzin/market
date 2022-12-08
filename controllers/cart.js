@@ -9,15 +9,17 @@ class CartController {
 			const products = req.body.cart.items
 			const items_result = []
 			for (const el of products) {
+                let count = 0
 				await axios.get('https://api.shinpi.ru/kolobox/products/', {
 					params: { id: el.offerId },
 					headers: { token: process.env.TOKEN_API }
 				})
 					.then(result => {
+                        count = result.data.count_local
 						items_result.push({
 							feedId: el.feedId,
 							offerId: el.offerId,
-							count: result.data.count_local === null ? 0 : result.data.count_local,
+							count: result.data.count_local === null ? 0 : count,
 							warehouseId: el.warehouseId,
 							partnerWarehouseId: el.partnerWarehouseId
 						})
