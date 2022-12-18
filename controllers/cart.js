@@ -7,6 +7,9 @@ class CartController {
 	async post (req, res, next) {
 		try {
 			const products = req.body.cart.items
+			console.log(req.headers)
+			// if (req.headers.Authorization) 
+			// apiYandex.defaults.headers.common['Authorization'] = `OAuth oauth_token=${globalThis.token}, oauth_client_id=${process.env.CLIENT_ID}`
 			const items_result = []
 			for (const el of products) {
                 let count = 0
