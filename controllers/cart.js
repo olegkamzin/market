@@ -6,8 +6,8 @@ dotenv.config()
 class CartController {
 	async post (req, res, next) {
 		try {
-			const products = req.body.cart.items
 			if (process.env.AUTH_TOKEN !== req.headers.authorization) return next(ApiError.unauthorized('Токен авторизации не верный.'))
+			const products = req.body.cart.items
 			const items_result = []
 			for (const el of products) {
                 let count = 0
