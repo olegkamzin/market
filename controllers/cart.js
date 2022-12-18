@@ -7,6 +7,8 @@ class CartController {
 	async post (req, res, next) {
 		try {
 			const products = req.body.cart.items
+			console.log(process.env.AUTH_TOKEN)
+			console.log(req.headers.authorization)
 			if (process.env.AUTH_TOKEN !== req.headers.authorization) return next(ApiError.unauthorized('Токен авторизации не верный.'))
 			const items_result = []
 			for (const el of products) {
